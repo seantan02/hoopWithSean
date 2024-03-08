@@ -44,6 +44,7 @@ nav {
     text-decoration: none;
     padding: 10px;
 }
+
 /* Footer */
 footer{
     color: white;
@@ -67,7 +68,13 @@ footer p{
     text-align: center;
 }
 #general-menu{
+    width: 100%;
     display: none;
+}
+#general-menu ul{
+ list-style-type: none;
+ display: inline;
+ text-align: right;
 }
 
 @media screen and (min-width: 768px){
@@ -75,6 +82,9 @@ footer p{
         display: none;
     }
     #general-menu{
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
+
 }
