@@ -1,24 +1,29 @@
 /* Global Styles */
+*{
+    box-sizing:border-box; 
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e9e9e9;
+    background-color: black;
 }
 
 .container {
-    max-width: 800px;
+    width: 95%;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ecff5e;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Navigation Styles */
 nav {
-    background-color: #333;
-    color: #fff;
+    background-color: black;
+    color: #fff646;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
@@ -28,32 +33,29 @@ nav {
 .logo {
     font-size: 24px;
 }
-
 .menu {
     list-style: none;
+    width: 100%;
     padding: 0;
     margin: 0;
 }
-
 .menu li {
     display: inline;
 }
-
 .menu li a {
-    color: #fff;
+    color: #fff646;
     text-decoration: none;
     padding: 10px;
 }
-
 /* Footer */
 footer{
-    color: white;
     background-color: black;
+    color: #fff646;
     width: 100%;
     padding: 10px 20px;
 }
 footer a{
-    color: rgb(1, 186, 223);
+    color: rgb(255, 240, 70);
     text-decoration: none;
 }
 footer p{
@@ -76,7 +78,40 @@ footer p{
  display: inline;
  text-align: right;
 }
+/* Style for the search bar container */
+.search-container {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 5px;
+    background-color: black;
+    color: #fff646; 
+    border: 1px solid #fff646;
+    border-radius: 5px;
+    padding: 5px;
+}
 
+/* Style for the input field */
+.search-input {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    color: #fff646;
+    outline: none;
+}
+
+/* Style for the search icon */
+.search-icon {
+    margin-right: 10px;
+    color: #fff646;
+}
+/* Hover effect for search container*/
+.search-container:hover {
+    transition: 1s;
+    background-color: rgb(54, 54, 54);
+}
 @media screen and (min-width: 768px){
     #mobile-menu {
         display: none;
