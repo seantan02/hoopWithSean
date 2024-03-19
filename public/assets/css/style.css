@@ -53,6 +53,7 @@ footer{
     color: #fff646;
     width: 100%;
     padding: 10px 20px;
+    clear: both;
 }
 footer a{
     color: rgb(255, 240, 70);
@@ -112,7 +113,38 @@ footer p{
     transition: 1s;
     background-color: rgb(54, 54, 54);
 }
+
+/*Picture with button style*/
+
+.picture-with-btn-wrapper .img-dimmer::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Adjust the alpha value for desired dimness */
+}
+
+.picture-with-btn-wrapper button{
+    display: inline-block;
+    white-space: nowrap;
+    padding: 5px 8px;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    background-color: rgb(198, 96, 0);
+    border: 2px solid rgb(230, 165, 0);
+    border-radius: 5px;
+    font-family: "Sedgwick Ave", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* FOR DESKTOP, MEDIA OVER 768px! */
 @media screen and (min-width: 768px){
+    main.flex-big {
+        display: flex;
+    }
     #mobile-menu {
         display: none;
     }
@@ -120,6 +152,13 @@ footer p{
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+    .container-inline-big {
+        width: 30%;
+        max-width: 500px;
+        margin: 0 12px 0 12px;
+        float:left;
+        flex: 1;
     }
 
 }

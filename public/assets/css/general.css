@@ -11,3 +11,42 @@
 .align-items-center{
     align-items: center;
 }
+.absolute{
+    position: absolute;
+}
+.relative{
+    position: relative;
+}
+.topzero{
+    top: 0;
+}
+.btmzero{
+    bottom: 0;
+}
+.leftzero{
+    left: 0;
+}
+.rightzero{
+    right: 0;
+}
+.top25p{
+    top: 25%;
+}
+.top50p{
+    top: 50%;
+}
+.top75p{
+    top: 75%;
+}
+.btm50p{
+    bottom: 50%;
+}
+.left50p{
+    left: 50%;
+}
+.right50p{
+    right: 50%;
+}
+.transformcenter{
+    transform: translate(-50%, 50%);
+}
