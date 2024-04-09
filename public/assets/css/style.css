@@ -1,164 +1,149 @@
-/* Global Styles */
-*{
-    box-sizing:border-box; 
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-}
-
-.container {
-    width: 95%;
-    margin: 0 auto;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #ecff5e;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Navigation Styles */
-nav {
-    background-color: black;
-    color: #fff646;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-}
-.menu {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
-.menu li {
-    display: inline;
-}
-.menu li a {
-    color: #fff646;
-    text-decoration: none;
-    padding: 10px;
-}
-/* Footer */
-footer{
-    background-color: black;
-    color: #fff646;
-    width: 100%;
-    padding: 10px 20px;
-    clear: both;
-}
-footer a{
-    color: rgb(255, 240, 70);
-    text-decoration: none;
-}
-footer p{
-    display: flex;
-    flex-direction: column;
-    line-height: 25px;
-}
-/* Mobile Menu Styles */
-#mobile-menu {
-    width: 100%;
+.is-mobile{
     display: block;
-    text-align: center;
 }
-#general-menu{
-    width: 100%;
+
+.is-desktop{
     display: none;
 }
-#general-menu ul{
- list-style-type: none;
- display: inline;
- text-align: right;
-}
-/* Style for the search bar container */
-.search-container {
-    display: flex;
-    align-items: center;
-    max-width: 400px;
-    margin: 0 5px;
-    background-color: black;
-    color: #fff646; 
-    border: 1px solid #fff646;
-    border-radius: 5px;
-    padding: 5px;
-}
 
-/* Style for the input field */
-.search-input {
-    width: 100%;
-    padding: 5px;
-    font-size: 16px;
-    border: none;
-    background-color: transparent;
-    color: #fff646;
-    outline: none;
-}
-
-/* Style for the search icon */
-.search-icon {
-    margin-right: 10px;
-    color: #fff646;
-}
-/* Hover effect for search container*/
-.search-container:hover {
-    transition: 1s;
-    background-color: rgb(54, 54, 54);
-}
-
-/*Picture with button style*/
-
-.picture-with-btn-wrapper .img-dimmer::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2); /* Adjust the alpha value for desired dimness */
-}
-
-.picture-with-btn-wrapper button{
-    display: inline-block;
-    white-space: nowrap;
-    padding: 5px 8px;
-    font-size: 1em;
-    color: rgb(255, 255, 255);
-    background-color: rgb(198, 96, 0);
-    border: 2px solid rgb(230, 165, 0);
-    border-radius: 5px;
-    font-family: "Sedgwick Ave", cursive;
-    font-weight: 400;
-    font-style: normal;
-}
-
-/* FOR DESKTOP, MEDIA OVER 768px! */
 @media screen and (min-width: 768px){
-    main.flex-big {
-        display: flex;
-    }
-    #mobile-menu {
+    .is-mobile{
         display: none;
     }
-    #general-menu{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    
+    .is-desktop{
+        display: block;
     }
-    .container-inline-big {
-        width: 30%;
-        max-width: 500px;
-        margin: 0 12px 0 12px;
-        float:left;
-        flex: 1;
-    }
+}
 
+/* For timeline */
+.timeline .timeline-header {
+    width: 6em;
+    text-align: center;
+}
+.timeline .timeline-item {
+    display: flex;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    position: relative;
+    border-left: 0.1rem solid #b5b5b5;
+    margin-left: 3em;
+    padding-bottom: 2em;
+}
+.timeline .timeline-item::before {
+    background: white;
+    border: 0.1em solid #b5b5b5;
+    border-radius: 100%;
+    content: "";
+    display: block;
+    height: 0.8rem;
+    left: -0.45em;
+    position: absolute;
+    top: 1.2rem;
+    width: 0.8rem;
+}
+.timeline .timeline-item .timeline-tag {
+    position: absolute;
+    width: 0.8em;
+    left: -0.4em;
+    height: 0.8em;
+    top: 1.2em;
+}
+.timeline .timeline-item .timeline-tag .image {
+    width: 32px;
+    height: 32px;
+    left: -12px;
+    background: white;
+    border: 0.1em solid #b5b5b5;
+    border-radius: 100%;
+    display: block;
+    overflow: hidden;
+}
+.timeline .timeline-item .timeline-content {
+    padding: 1em 0 0 0.5em;
+    padding: 1em 0 0 2em;
+}
+.timeline .timeline-item .timeline-content .heading {
+font-weight: 500;
+}
+.timeline .timeline-item.is-white {
+border-left-color: white;
+}
+.timeline .timeline-item.is-white::before {
+border-color: white !important;
+}
+.timeline .timeline-item.is-white .timeline-tag .image {
+border-color: white !important;
+}
+.timeline .timeline-item.is-black {
+border-left-color: #0a0a0a;
+}
+.timeline .timeline-item.is-black::before {
+border-color: #0a0a0a !important;
+}
+.timeline .timeline-item.is-black .timeline-tag .image {
+border-color: #0a0a0a !important;
+}
+.timeline .timeline-item.is-light {
+border-left-color: whitesmoke;
+}
+.timeline .timeline-item.is-light::before {
+border-color: whitesmoke !important;
+}
+.timeline .timeline-item.is-light .timeline-tag .image {
+border-color: whitesmoke !important;
+}
+.timeline .timeline-item.is-dark {
+border-left-color: #363636;
+}
+.timeline .timeline-item.is-dark::before {
+border-color: #363636 !important;
+}
+.timeline .timeline-item.is-dark .timeline-tag .image {
+border-color: #363636 !important;
+}
+.timeline .timeline-item.is-primary {
+border-left-color: #00d1b2;
+}
+.timeline .timeline-item.is-primary::before {
+border-color: #00d1b2 !important;
+}
+.timeline .timeline-item.is-primary .timeline-tag .image {
+border-color: #00d1b2 !important;
+}
+.timeline .timeline-item.is-info {
+border-left-color: #3273dc;
+}
+.timeline .timeline-item.is-info::before {
+border-color: #3273dc !important;
+}
+.timeline .timeline-item.is-info .timeline-tag .image {
+border-color: #3273dc !important;
+}
+.timeline .timeline-item.is-success {
+border-left-color: #23d160;
+}
+.timeline .timeline-item.is-success::before {
+border-color: #23d160 !important;
+}
+.timeline .timeline-item.is-success .timeline-tag .image {
+border-color: #23d160 !important;
+}
+.timeline .timeline-item.is-warning {
+border-left-color: #ffdd57;
+}
+.timeline .timeline-item.is-warning::before {
+border-color: #ffdd57 !important;
+}
+.timeline .timeline-item.is-warning .timeline-tag .image {
+border-color: #ffdd57 !important;
+}
+.timeline .timeline-item.is-danger {
+border-left-color: #ff3860;
+}
+.timeline .timeline-item.is-danger::before {
+border-color: #ff3860 !important;
+}
+.timeline .timeline-item.is-danger .timeline-tag .image {
+border-color: #ff3860 !important;
 }

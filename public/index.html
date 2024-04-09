@@ -2,72 +2,273 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hoop with Sean</title>
-    <link rel="stylesheet" href="assets/css/style.mincss?version=1">
-    <link rel="stylesheet" href="assets/css/general.css?version=1">
-    <link rel="stylesheet" href="assets/css/import.min.css?version=1">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="/path/to/bulma-timeline.min.css" />
 </head>
 <body>
-    <nav>
-        <div id="mobile-menu">
-            <div class="chunk flex justify-content-space-between align-items-center">
-                <div class="logo">HoopWithSean</div>
-                <div class="search-container">
-                    <input type="text" placeholder="Search..." class="search-input">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
-            </div>
-            <div class="chunk flex justify-content-space-between align-items-center">
-                <ul class="menu">
-                    <li><a href="journey.html">Sean's Journey</a></li>
-                    <li><a href="#">Start Hooping with Sean</a></li>
-                </ul>
-            </div>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src="assets/images/logo.svg" alt="Logo">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
-        <div id="general-menu">
-            <div class="chunk flex justify-content-space-between align-items-center">
-                <div class="logo">HoopWithSean</div>
-                <div class="flex align-items-center">
-                    <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input">
-                        <i class="fas fa-search search-icon"></i>
-                    </div>
-                    <ul class="menu">
-                        <li><a href="journey.html">Sean's Journey</a></li>
-                        <li><a href="#">Start Hooping with Sean</a></li>
-                    </ul>
-                </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              Documentation
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About
+                </a>
+                <a class="navbar-item is-selected">
+                  Jobs
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
+                </a>
+              </div>
             </div>
+          </div>
+          <div class="navbar-item">
+            <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="text" placeholder="Search...">
+                <span class="icon is-left">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
     </nav>
-    <main class="flex-big">
-        <div class="container container-inline-big">
-            <div class="picture-with-btn-wrapper relative">
-                <div class="img-dimmer"></div>
-                <picture class="picture picture-with-btn">
-                    <img class="lazyload" data-src="index_start_hooping.jpg" src="" alt="Image 1" width="100%">
-                </picture>
-                <button class="button absolute top75p left50p transformcenter">Start Hooping with Sean</button>
+    <main>
+        <!-- Mobile Version -->
+        <section class="section is-mobile">
+          <!-- Bold title -->
+          <h2 class="title is-2">Bold Title</h2>
+      
+          <!-- A nice survey with a question on top and some tick boxes below it -->
+          <div class="box">
+            <p class="subtitle">Question goes here?</p>
+            <div class="field">
+              <input id="option1" type="checkbox" class="is-checkradio" checked>
+              <label for="option1">Option 1</label>
             </div>
-        </div>
-        <div class="container container-inline-big">
-            <div class="picture-with-btn-wrapper relative">
-                <div class="img-dimmer"></div>
-                <picture class="picture picture-with-btn">
-                    <img class="lazyload" data-src="index_journey.jpg" src="" alt="Image 1" width="100%">
-                </picture>
-                <button class="button absolute top75p left50p transformcenter">Rewind the journey of Sean</button>
+            <div class="field">
+              <input id="option2" type="checkbox" class="is-checkradio">
+              <label for="option2">Option 2</label>
             </div>
+            <!-- Add more options as needed -->
+          </div>
+      
+          <!-- Nice framed image -->
+          <figure class="image is-4by3">
+            <img class="lazyload" data-src="index_start_hooping.jpg" src="" alt="Image 1" width="100%">
+          </figure>
+        </section>
+      
+        <!-- Desktop Version -->
+        <div class="is-desktop">
+            <section class="section">
+                <div class="columns">
+                  <!-- Left side content (1-3) -->
+                  <div class="column is-half-desktop">
+                    <!-- Title -->
+                    <h2 class="title is-2">About Us</h2>
+                    
+                    <!-- Content -->
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget commodo quam. Nam at turpis nec mi vestibulum varius. Aliquam accumsan, leo non fermentum viverra, est lectus ultricies metus, eget vestibulum justo dolor ut justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    
+                    <p>
+                        <small>What brings you to HoopWithSean?</small>
+                    </p>
+                    <!-- Nice looking grey line -->
+                    <hr class="is-hidden-touch">
+            
+                    <!-- Bold title -->
+                    <h2 class="title is-2">Lorem ipsum dolor sit amet consectetur.</h2>
+            
+                    <!-- A nice survey with a question on top and some tick boxes below it -->
+                    <div class="box">
+                      <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, minima!?</p>
+                      <div class="field">
+                        <input id="option1" type="checkbox" class="is-checkradio" checked>
+                        <label for="option1">Option 1</label>
+                      </div>
+                      <div class="field">
+                        <input id="option2" type="checkbox" class="is-checkradio">
+                        <label for="option2">Option 2</label>
+                      </div>
+                      <div class="field">
+                        <input id="option2" type="checkbox" class="is-checkradio">
+                        <label for="option2">Option 3</label>
+                      </div>
+                      <div class="field">
+                        <input id="option2" type="checkbox" class="is-checkradio">
+                        <label for="option2">Option 4</label>
+                      </div>
+                    </div>
+                  </div>
+            
+                  <!-- Right side content (4) -->
+                  <div class="column is-half-desktop">
+                    <!-- Nice framed image -->
+                    <figure class="image is-3by4">
+                        <img class="lazyload" data-src="index_start_hooping.jpg" src="" alt="Image 1" width="100%">
+                    </figure>
+                  </div>
+                </div>
+            </section>
+            <!-- About Us Section -->
+            <section class="section">
+                <!-- Desktop Version -->
+                <div class="columns is-desktop">
+                <!-- Image on the left side -->
+                <div class="column is-one-third-desktop">
+                    <figure class="image">
+                    <img src="assets/images/index_journey.jpg" alt="About Us Image">
+                    </figure>
+                </div>
+                
+                <!-- Content on the right side -->
+                <div class="column">
+                    <!-- Mile stone -->
+                    <div class="milestones-summary mt-4 ">
+                        <h3 class="title is-3">Milestones Summary</h3>
+                        <ul class="timeline">
+                            <li class="timeline-header">
+                              <span class="button is-primary">Start</span>
+                            </li>
+                            <li class="timeline-item is-warning">
+                              <div class="timeline-tag"></div>
+                              <div class="timeline-content">
+                                <p class="heading">January 2015</p>
+                                <p>Sean first touched a basketball</p>
+                              </div>
+                            </li>
+                            <li class="timeline-item is-danger">
+                              <div class="timeline-tag is-icon">
+                              </div>
+                              <div class="timeline-content">
+                                <p class="heading">August 2016</p>
+                                <p>Sean won first championship in a international-schools tournament in Malaysia</p>
+                              </div>
+                            </li>
+                            <li class="timeline-item is-danger">
+                                <div class="timeline-tag is-icon">
+                                </div>
+                                <div class="timeline-content">
+                                  <p class="heading">August 2017</p>
+                                  <p>Sean became the U-18 school basketball captain</p>
+                                </div>
+                              </li>
+                            <li class="timeline-header">
+                                <span class="button is-primary">2022</span>
+                              </li>
+                              <li class="timeline-item is-danger">
+                                <div class="timeline-content">
+                                  <p class="heading">August 2022</p>
+                                  <p>Sean torn his ACL, potentially ending his basketball career</p>
+                                </div>
+                            </li>
+                            <li class="timeline-header">
+                                <span class="button is-primary">2023</span>
+                              </li>
+                              <li class="timeline-item is-warning">
+                                <div class="timeline-content">
+                                  <p class="heading">April 2023</p>
+                                  <p>Sean had his ACL reconstruction and started working on his recovery</p>
+                                </div>
+                            </li>
+                            <li class="timeline-header">
+                                <span class="button is-primary">2024</span>
+                              </li>
+                              <li class="timeline-item is-success">
+                                <div class="timeline-content">
+                                  <p class="heading">April 2024</p>
+                                  <p>Sean is cleared for going back to basketball and he now plays in the Nicholas almost everyday with UW-Madison's club players.</p>
+                                </div>
+                            </li>
+                            <li class="timeline-header">
+                              <span class="button is-primary">Present</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
         </div>
-    </main>
-    <footer>
-        <p>
-            <small>HoopWithSean Copyright 2024 - 2030 &copy;</small>
-            <b>For any inquiry, contact <a href="mailto:seantsa02@gmail.com">seantsa02@gmail.com</a></b>
-        </p>
-    </footer>
+    </main>      
+    <footer class="footer">
+        <div class="container">
+          <div class="columns">
+            <div class="column">
+              <h4 class="title is-4">Contact Us</h4>
+              <a href="mailto:seantsa02@gmail.com"><p>Email: seantsa02@gmail.com</p></a>
+            </div>
+            <div class="column">
+              <h4 class="title is-4">Quick Links</h4>
+              <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about-us">About Us</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <h4 class="title is-4">Social Media</h4>
+              <ul class="social-icons">
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="content has-text-centered">
+            <p>
+              <strong>&copy; 2024 HoopWithSean</strong>. All rights reserved.
+            </p>
+          </div>
+        </div>
+    </footer>      
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let lazyloadImages = document.querySelectorAll(".lazyload");
