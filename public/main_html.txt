@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section box">
     <!-- Title -->
     <h2 class="title is-2">About Us</h2>
     <!-- Content -->
@@ -40,7 +40,7 @@
     </figure>
 </section>
 <!-- About Us Section -->
-<section class="section">
+<section class="section box">
     <!-- Mile stone -->
     <div class="milestones-summary mt-4 ">
         <h3 class="title is-3">Milestones Summary</h3>

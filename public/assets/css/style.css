@@ -129,3 +129,8 @@ border-color: #ff3860 !important;
 .timeline .timeline-item.is-danger .timeline-tag .image {
 border-color: #ff3860 !important;
 }
+
+/* For each image */
+img{
+    border-radius: 5px;
+}

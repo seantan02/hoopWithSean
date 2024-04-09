@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="/path/to/bulma-timeline.min.css" />
 </head>
-<body>
+<body class="has-background-light">
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://bulma.io">
             <img src="assets/images/logo.svg" alt="Logo">
           </a>
       
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -24,7 +24,7 @@
           </a>
         </div>
       
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-start">
             <a class="navbar-item">
               Home
@@ -80,7 +80,7 @@
           </div>
         </div>
     </nav>
-    <main id="mainContent">
+    <main id="mainContent" class="container is-fluid pt-3 pb-3">
     </main>      
     <footer class="footer">
         <div class="container">
@@ -113,17 +113,19 @@
           </div>
         </div>
     </footer>
+<!-- Add Bulma JavaScript -->
+<script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3/js/bulma.min.js"></script>
 <script>
     // Function to check screen size
-    function checkScreenSize() {
-        return window.innerWidth > 759; // Change the value according to your requirement
+    function screenIsBig() {
+        return window.innerWidth > 768; // Change the value according to your requirement
     }
     
     // Function to load file content
     function loadMainHTMLContent() {
         return new Promise((resolve, reject) => {
             // Check if the screen size is greater than 759px
-            if (checkScreenSize()) {
+            if (screenIsBig()) {
                 fetch('desktop_main_html.txt')
                     .then(response => {
                         if (!response.ok) {
@@ -161,12 +163,15 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         loadMainHTMLContent().then(response =>{
+            var isMobile = true;
+            if(screenIsBig()) isMobile = false;
+
             let lazyloadImages = document.querySelectorAll(".lazyload");
         
             const lazyload = () => {
             lazyloadImages.forEach(image => {
                 let src = image.getAttribute('data-src');
-                    if (window.innerWidth >= 768) {
+                    if (!isMobile) {
                         src = "assets/images/desktop/" + src;
                     }else{
                         src = "assets/images/" + src;
@@ -178,8 +183,27 @@
             });
             };
             lazyload();
+
+            if(isMobile){
+              //Script for toggling mobile menu
+              const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+              // Add a click event on each of them
+              $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+
+                  // Get the target from the "data-target" attribute
+                  const target = el.dataset.target;
+                  const $target = document.getElementById(target);
+
+                  // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                  el.classList.toggle('is-active');
+                  $target.classList.toggle('is-active');
+
+                });
+              });
+            }
         }).catch(response =>{
-            alert("Page failed to load. Please refresh.");
+            alert(response);
         });
     });
 </script>
