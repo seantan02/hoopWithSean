@@ -69,10 +69,10 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary">
+                <a class="button is-primary sign-up-btn">
                   <strong>Sign up</strong>
                 </a>
-                <a class="button is-light">
+                <a class="button is-light sign-in-btn">
                   Log in
                 </a>
               </div>
@@ -81,7 +81,62 @@
         </div>
     </nav>
     <main id="mainContent" class="container is-fluid pt-3 pb-3">
-    </main>      
+      <div class="model-wrapper">
+        <!-- Sign-up Modal -->
+        <div id="signupModal" class="modal">
+          <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Sign Up</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Sign-up form goes here -->
+                    <form>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" placeholder="Enter your email">
+                            </div>
+                        </div>
+                        <!-- Other sign-up form fields -->
+                    </form>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Sign Up</button>
+                    <button class="button">Cancel</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Log In</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Login form goes here -->
+                    <form>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" placeholder="Enter your email">
+                            </div>
+                        </div>
+                        <!-- Other login form fields -->
+                    </form>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success">Log In</button>
+                    <button class="button">Cancel</button>
+                </footer>
+            </div>
+        </div>
+      </div>
+    </main>
     <footer class="footer">
         <div class="container">
           <div class="columns">
@@ -134,7 +189,7 @@
                         return response.text();
                     })
                     .then(data => {
-                        document.getElementById('mainContent').innerHTML = data;
+                        document.getElementById('mainContent').insertAdjacentHTML("afterbegin", data);
                         resolve("Main HTML content loaded successfully");
                     })
                     .catch(error => {
@@ -150,7 +205,7 @@
                         return response.text();
                     })
                     .then(data => {
-                        document.getElementById('mainContent').innerHTML = data;
+                        document.getElementById('mainContent').insertAdjacentHTML("afterbegin", data);
                         resolve("Main HTML content loaded successfully");
                     })
                     .catch(error => {
@@ -163,15 +218,14 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         loadMainHTMLContent().then(response =>{
-            var isMobile = true;
-            if(screenIsBig()) isMobile = false;
+            var isDesktop = screenIsBig();
 
             let lazyloadImages = document.querySelectorAll(".lazyload");
         
             const lazyload = () => {
             lazyloadImages.forEach(image => {
                 let src = image.getAttribute('data-src');
-                    if (!isMobile) {
+                    if (isDesktop) {
                         src = "assets/images/desktop/" + src;
                     }else{
                         src = "assets/images/" + src;
@@ -183,8 +237,52 @@
             });
             };
             lazyload();
+            //Guidance Button script
+            document.querySelectorAll(".guidanceBtn").forEach(btn => {
+              btn.addEventListener("click", function() {
+                  var targetId = this.getAttribute("data-guideTarget"); // Remove the "#" from href
+                  console.log(targetId)
+                  var targetElement = document.getElementById(targetId);
+                  if (targetElement) {
+                      var targetOffset = targetElement.offsetTop;
+                      window.scrollTo({
+                          top: targetOffset,
+                          behavior: "smooth" // Smooth scroll behavior
+                      });
+                  }
+              })
+            });
+            //Sign up and Sign in modal
+            const signupButtons = document.querySelectorAll('.sign-up-btn');
+            const loginButtons = document.querySelectorAll('.sign-in-btn');
+            const signupModal = document.getElementById('signupModal');
+            const loginModal = document.getElementById('loginModal');
+            const closeModalButtons = document.querySelectorAll('.modal .delete, .modal .button');
 
-            if(isMobile){
+            const openModal = (modal) => {
+                modal.classList.add('is-active');
+            };
+
+            const closeModal = (modal) => {
+                modal.classList.remove('is-active');
+            };
+
+            signupButtons.forEach(signupButton => {
+              signupButton.addEventListener('click', () => openModal(signupModal));
+            });
+            
+            loginButtons.forEach(loginButton => {
+              loginButton.addEventListener('click', () => openModal(loginModal));
+            });
+            
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    closeModal(signupModal);
+                    closeModal(loginModal);
+                });
+            });
+            //MOBILE's SCRIPT
+            if(!isDesktop){
               //Script for toggling mobile menu
               const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
               // Add a click event on each of them

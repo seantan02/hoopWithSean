@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "version": "4",
+    "version": "6",
     "public": "public",
     "ignore": [
       "firebase.json",
