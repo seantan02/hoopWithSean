@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hoop with Sean</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="/path/to/bulma-timeline.min.css" />
@@ -69,10 +70,10 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary">
+                <a class="button is-primary sign-up-btn">
                   <strong>Sign up</strong>
                 </a>
-                <a class="button is-light">
+                <a class="button is-light sign-in-btn">
                   Log in
                 </a>
               </div>
@@ -120,7 +121,7 @@
                     <!-- Nice framed image -->
                     <figure class="image is-3by4 position-relative">
                         <img class="lazyload" data-src="index_start_hooping.jpg" src="" alt="Image 1" width="100%" style="filter: brightness(0.8);">
-                        <button class="button is-primary is-light guidanceBtn" data-guideTarget="journey-wrapper" style="position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);">Learn About Sean's Journey</button>
+                        <button class="button is-outlined is-black has-background-white has-shadow guidanceBtn" data-guideTarget="journey-wrapper" style="position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);">Learn About Sean's Journey</button>
                     </figure>
                 </div>
             </div>
@@ -205,6 +206,75 @@
                 </div>
             </div>
             </div>
+        </section>
+        <!-- Advice Section -->
+        <style>
+          iframe{
+              width: 35vw;
+              max-width: 560px;
+              height: 30vh;
+              max-height: 315px;
+          }
+        </style>
+        <section class="section">
+          <div class="container" style="position: relative;">
+              <div class="blurred-content">
+                <div class="mt-5" style="text-align: center;">
+                  <h2 class="is-size-4 has-text-white has-text-weight-semibold">
+                    Sign Up/Log In to continue reading
+                  </h2>
+                  <div class="mt-5">
+                    <a class="button is-primary sign-up-btn">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light sign-in-btn">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="columns is-centered">
+                  <div class="column is-10 box">
+                      <h2 class="title is-2">Sean's Advice</h2>
+                      <h4 class="title is-5">For Everyone:</h2>
+                      <div class="box has-background-black has-text-white">
+                          <h3 class="is-size-3 has-text-weight-semibold">Advice 1: It's all about TURNOVERS</h3>
+                          <!-- Embedded YouTube Video -->
+                          <div class="is-flex is-align-content-flex-start is-justify-content-flex-start">
+                            <div>
+                              <iframe src="https://www.youtube.com/embed/FwvEXZjpcr4?si=SVgm5vPj5TNhy_MO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <!-- Explanation Paragraph -->
+                            <p class="pl-2">A lot of players even NBA players has the problem of having turnovers, so does everyone else. Most people only focus on how to score a 50-piece, when they turn the ball over more than 50 points worth of position. Learn how to protect your ball, how to make good passes, how to catch ball while sprinting and not turnover, and more. If you can play a whole game of basketball with 0 turnover, good job, you are already on top of so many people.</p>
+                          </div>
+                      </div>
+                      
+                      <div class="box has-background-black has-text-white">
+                        <h3 class="is-size-3 has-text-weight-semibold">Advice 2: Make free throws before 3 pointers</h3>
+                        <!-- Embedded YouTube Video -->
+                        <div class="is-flex is-align-content-flex-start is-justify-content-flex-start">
+                          <div>
+                            <iframe src="https://www.youtube.com/embed/SDyxq_--PTQ?si=6azL24MKd1Uv5ewG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                          </div>
+                          <!-- Explanation Paragraph -->
+                          <p class="pl-2">Who doesn't want to be Stephen Curry, right? But hey, all you see on TV is him after endless hours of shots training for YEARS! If you notice, his free throw percentage is insanely high. Focus on a smooth looking textbook-kinda shooting form first, then start using it to shoot every day from close to the rim to free throw then to 3 pointers. One thing I always like saying is that "If you have to push your arms to shoot, you are not shooting, you are throwing so take one step closer and retry".</p>
+                        </div>
+                      </div>
+
+                      <div class="box has-background-black has-text-white">
+                        <h3 class="is-size-3 has-text-weight-semibold">Advice 3: Take your time on offense</h3>
+                        <!-- Embedded YouTube Video -->
+                        <div class="is-flex is-align-content-flex-start is-justify-content-flex-start">
+                          <div>
+                            <iframe src="https://www.youtube.com/embed/SDyxq_--PTQ?si=6azL24MKd1Uv5ewG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                          </div>
+                          <!-- Explanation Paragraph -->
+                          <p class="pl-2">Who doesn't want to be Stephen Curry, right? But hey, all you see on TV is him after endless hours of shots training for YEARS! If you notice, his free throw percentage is insanely high. Focus on a smooth looking textbook-kinda shooting form first, then start using it to shoot every day from close to the rim to free throw then to 3 pointers. One thing I always like saying is that "If you have to push your arms to shoot, you are not shooting, you are throwing so take one step closer and retry".</p>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </section>
     </main>      
     <footer class="footer">

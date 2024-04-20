@@ -1,52 +1,9 @@
-.chunk{
-    width: 100%;
-    padding: 2.5px 5px;
-}
-.flex{
-    display: flex;
-}
-.justify-content-space-between{
-    justify-content: space-between;
-}
-.align-items-center{
-    align-items: center;
-}
-.absolute{
+.blurred-content {
     position: absolute;
-}
-.relative{
-    position: relative;
-}
-.topzero{
-    top: 0;
-}
-.btmzero{
-    bottom: 0;
-}
-.leftzero{
+    width: 100%;
+    top: 23%;
     left: 0;
-}
-.rightzero{
     right: 0;
-}
-.top25p{
-    top: 25%;
-}
-.top50p{
-    top: 50%;
-}
-.top75p{
-    top: 75%;
-}
-.btm50p{
-    bottom: 50%;
-}
-.left50p{
-    left: 50%;
-}
-.right50p{
-    right: 50%;
-}
-.transformcenter{
-    transform: translate(-50%, 50%);
+    bottom: 0;
+    backdrop-filter: blur(5px);
 }
