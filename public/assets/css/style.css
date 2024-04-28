@@ -176,6 +176,13 @@ img{
     transition: 2s;
 }
 /* Style for the search results display box */
+.searchbar-wrapper{
+    position: relative !important;
+    display: none;
+}
+.searchbar-wrapper.active{
+    display: block;
+}
 #searchResultsDisplayBox {
     position: absolute;
     top: 100%; /* Position below the search input */

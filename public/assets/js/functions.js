@@ -3,7 +3,7 @@ function hashPassword(password) {
 }
 // Function to check screen size
 function screenIsBig() {
-    return window.innerWidth > 1047; // Change the value according to your requirement
+    return window.innerWidth > 745; // Change the value according to your requirement
 }
 //hide and show masking
 function activateMasking(){
@@ -302,6 +302,10 @@ function updateNavbarForSignedInUser(userEmail, navbarId){
   oldNavEnd.remove();
   //add the new navbar-end
   navMenu.appendChild(navbarEnd);
+  //show searcb bar
+  document.querySelectorAll(".searchbar-wrapper").forEach(searchbarWrapper => {
+    searchbarWrapper.classList.add("active");
+  })
 }
 function removeAllClasses(className){
   //1st replace the navbar UI
@@ -330,6 +334,32 @@ function showSuccessPopUp(title, body){
   })
 }
 /** Implementation of Searching from firestore */
+//function that creates a search result
+function createSearchResultHTML(title, body, video_url){
+  if(title == ""){
+    let emptyResult = document.createElement("div");
+    let emptyMsg = document.createElement("h3");
+    emptyMsg.innerHTML = "No matching result";
+    emptyResult.appendChild(emptyMsg);
+    return emptyResult;
+  }
+  let searchResult = document.createElement("div");
+  searchResult.classList.add("search-result");
+  searchResult.setAttribute("title", title);
+  searchResult.setAttribute("body", body);
+  searchResult.setAttribute("video_url", video_url);
+  let titleWrapper = document.createElement("div");
+  titleWrapper.classList.add("search-result-info");
+  titleWrapper.classList.add("info");
+  let titleText = document.createElement("h3");
+  titleText.classList.add("search-result-title");
+  titleText.innerHTML = title;
+  //assemble
+  titleWrapper.appendChild(titleText);
+  searchResult.appendChild(titleWrapper);
+  return searchResult;
+}
+
 function searchFromFireStore(firestore, collection, searchKey) {
   // Fetch data from Firestore and insert into trie
   return new Promise((resolve, reject) => {
@@ -337,26 +367,15 @@ function searchFromFireStore(firestore, collection, searchKey) {
     let searchResultWrapper = document.querySelector("#searchResultsDisplayBox");
     firestore.collection(collection).get()
     .then((querySnapshot) => {
+      let count = 0;
       querySnapshot.forEach((doc) => {
         if(doc.data().title.toLowerCase().includes(searchKey) || doc.data().body.toLowerCase().includes(searchKey)){
-          let searchResult = document.createElement("div");
-          searchResult.classList.add("search-result");
-          searchResult.setAttribute("title", doc.data().title);
-          searchResult.setAttribute("body", doc.data().body);
-          searchResult.setAttribute("video_url", doc.data().video_url);
-          let titleWrapper = document.createElement("div");
-          titleWrapper.classList.add("search-result-info");
-          titleWrapper.classList.add("info");
-          let title = document.createElement("h3");
-          title.classList.add("search-result-title");
-          title.innerHTML = doc.data().title;
-          //assemble
-          titleWrapper.appendChild(title);
-          searchResult.appendChild(titleWrapper);
-          searchResultWrapper.appendChild(searchResult);
+          searchResultWrapper.appendChild(createSearchResultHTML(doc.data().title, doc.data().body, doc.data().video_url));
+          count += 1;
         }
       });
-      searchResultWrapper.classList.add("active");
+      if(count == 0) alert("No matching result found. Please try with different key word.")
+      else searchResultWrapper.classList.add("active");
       resolve({status:1, message: "Trie built successfully", results: results});
     }).catch((error) => {
       reject({status:0, message: error});

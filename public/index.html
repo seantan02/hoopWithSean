@@ -47,7 +47,7 @@
               </div>
             </div>
           </div>
-          <div class="navbar-item">
+          <div class="navbar-item searchbar-wrapper is-relative">
             <div class="field">
               <p class="control has-icons-left">
                 <input class="input" type="text" name="search" placeholder="Search...">
@@ -69,17 +69,6 @@
                   Log in
                 </a>
               </div>
-            </div>
-          </div>
-        </div>
-        <!-- Search Results Dropdown -->
-        <div id="searchResultsDropdown" class="navbar-dropdown is-boxed is-right">
-          <div class="dropdown-content">
-            <div class="search-result">
-                <img src="image1.jpg" alt="Image 1" class="search-result-image">
-                <div class="search-result-info">
-                    <h3 class="search-result-title">Title 1</h3>
-                </div>
             </div>
           </div>
         </div>
@@ -360,7 +349,6 @@ document.addEventListener("DOMContentLoaded", function() {
               updateUIForSignedInUser(user.email);
               //sign out btn
               document.querySelectorAll(".sign-out-btn").forEach(signOutBtn => {
-                console.log("ASD");
                 signOutBtn.addEventListener("click", (event) => {
                   logOutUser(firebase)
                   .then(success => {
@@ -401,14 +389,15 @@ document.addEventListener("DOMContentLoaded", function() {
               inputElement.addEventListener('keydown', function(e1) {
                   if (e1.code == 'Enter' || e1.keyCode == 13) {
                     let searchKey = e1.target.value;
-                    console.log(searchKey);
                     searchFromFireStore(db, "advices", searchKey)
                     .then(success =>{
                       document.querySelectorAll(".search-result").forEach(searchResult => {
                         searchResult.addEventListener("click", function(e2){
                           activateMasking();
                           showSuccessPopUp(this.getAttribute("title"), this.getAttribute("body"));
-                          document.querySelector("#searchResultsDisplayBox").innerHTML = "";
+                          let searchResultsDisplayBox = document.querySelector("#searchResultsDisplayBox");
+                          searchResultsDisplayBox.innerHTML = "";
+                          searchResultsDisplayBox.classList.remove("active");
                         })
                       })
                     })
