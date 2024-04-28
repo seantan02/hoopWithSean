@@ -30,22 +30,13 @@
             <a class="navbar-item">
               Home
             </a>
-      
-            <a class="navbar-item">
-              Documentation
-            </a>
-      
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 More
               </a>
-      
               <div class="navbar-dropdown">
                 <a class="navbar-item">
                   About
-                </a>
-                <a class="navbar-item is-selected">
-                  Jobs
                 </a>
                 <a class="navbar-item">
                   Contact
@@ -68,15 +59,15 @@
             </div>
           </div>
           <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary sign-up-btn">
-                  <strong>Sign up</strong>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    uer@gmail.com
                 </a>
-                <a class="button is-light sign-in-btn">
-                  Log in
-                </a>
-              </div>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        Profile
+                    </a>
+                </div>
             </div>
           </div>
         </div>
@@ -96,10 +87,24 @@
                   <hr class="is-hidden-touch">
           
                   <!-- Bold title -->
-                  <h2 class="title is-2">Welcome to HoopWithSean!</h2>
-                  <p>
-                    This is a single page application so please enjoy the page by just scrolling! Have fun!
-                  </p>
+                  <h2 class="title is-2">What brings you to HoopWithSean?</h2>
+          
+                  <!-- A nice survey with a question on top and some tick boxes below it -->
+                  <form class="box" method="POST" action="">
+                      <div class="field">
+                        <input id="option1" type="checkbox" class="is-checkradio">
+                        <label for="option1">I am losing inspiration to hoop</label>
+                      </div>
+                      <div class="field">
+                        <input id="option2" type="checkbox" class="is-checkradio">
+                        <label for="option2">I need some unordinary advices</label>
+                      </div>
+                      <div class="field">
+                        <input id="option3" type="checkbox" class="is-checkradio">
+                        <label for="option3">I want to know about Sean's journey</label>
+                      </div>
+                      <button class="button is-primary" disabled>Submit</button>
+                    </form>
                 </div>
         
                 <!-- Right side content (4) -->
@@ -222,7 +227,7 @@
               <div class="columns is-centered">
                   <div class="column is-10 box" id="advices">
                       <h2 class="title is-2">Advices for everyone</h2>
-                      <div class="box has-background-black has-text-white content-placeholder">
+                      <div class="box has-background-black has-text-white">
                           <h3 class="is-size-3 has-text-weight-semibold">Advice 1: It's all about TURNOVERS</h3>
                           <!-- Embedded YouTube Video -->
                           <div class="is-flex is-align-content-flex-start is-justify-content-flex-start">
@@ -242,7 +247,7 @@
               <div class="columns is-centered">
                 <div class="column is-10 box" id="advicesUnder6">
                     <h2 class="title is-2">For people under 6 feet</h2>
-                    <div class="box has-background-black has-text-white content-placeholder">
+                    <div class="box has-background-black has-text-white">
                         <h3 class="is-size-3 has-text-weight-semibold">Advice 1: Shooting 3 is actually easier</h3>
                         <!-- Embedded YouTube Video -->
                         <div class="is-flex is-align-content-flex-start is-justify-content-flex-start">

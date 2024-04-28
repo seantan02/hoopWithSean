@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="/path/to/bulma-timeline.min.css" />
 </head>
-<body class="has-background-light">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+<body class="has-background-light is-relative">
+    <div class="mask" id="mask"></div>
+    <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://bulma.io">
             <img src="assets/images/logo.svg" alt="Logo">
@@ -27,31 +28,20 @@
       
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item" href="">
               Home
             </a>
-      
-            <a class="navbar-item">
-              Documentation
-            </a>
-      
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 More
               </a>
       
               <div class="navbar-dropdown">
-                <a class="navbar-item">
+                <a class="navbar-item guidanceBtn" href="#mainContent" data-guideTarget="mainContent">
                   About
                 </a>
-                <a class="navbar-item is-selected">
-                  Jobs
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a>
                 <hr class="navbar-divider">
-                <a class="navbar-item">
+                <a class="navbar-item" href="mailto:seantsa02@gmail.com">
                   Report an issue
                 </a>
               </div>
@@ -89,7 +79,7 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Sign Up</p>
-                    <button class="delete" aria-label="close"></button>
+                    <button class="delete"  type="button" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
@@ -102,6 +92,12 @@
                       <label class="label">Password</label>
                       <div class="control">
                           <input class="input" type="password" placeholder="Enter your password" name="password">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Retype Password</label>
+                      <div class="control">
+                          <input class="input" type="password" placeholder="Enter your password" name="password2">
                       </div>
                     </div>
                 </section>
@@ -118,7 +114,7 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Log In</p>
-                    <button class="delete" aria-label="close"></button>
+                    <button class="delete" aria-label="close" type="button"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
@@ -140,6 +136,11 @@
                 </footer>
             </div>
           </form>
+      </div>
+      <div id="successPopUp" class="popup">
+        <button class="delete" onclick="document.getElementById('successPopUp').style.display='none';deactivateMasking();"></button>
+        <h2 class="title is-4"></h2>
+        <p></p>
       </div>
     </main>
     <footer class="footer">
@@ -175,140 +176,209 @@
     </footer>
 <!-- Add Bulma JavaScript -->
 <script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3/js/bulma.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-storage.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+<!-- SHA-256 encryption needed-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<!-- This script contains all the functions for that is used below-->
+<script src="assets/js/functions.js"></script>
 <script>
-    // Function to check screen size
-    function screenIsBig() {
-        return window.innerWidth > 1047; // Change the value according to your requirement
-    }
+const firebaseConfig = {
+  apiKey: "AIzaSyA-lLohj9oXOXhTVwQ4whsmN-R5BHO6ibc",
+  authDomain: "hoop-with-sean.firebaseapp.com",
+  projectId: "hoop-with-sean",
+  storageBucket: "hoop-with-sean.appspot.com",
+  messagingSenderId: "716318172760",
+  appId: "1:716318172760:web:5310d17731ebeb64100c2d",
+  measurementId: "G-Q4YWBKG1RF"
+};
+firebase.initializeApp(firebaseConfig);
+let auth;
+let db;
+let ref;
+let user;
+document.addEventListener("DOMContentLoaded", function() {
+    loadMainHTMLContent().then(response =>{
+        var isDesktop = screenIsBig();
+
+        let lazyloadImages = document.querySelectorAll(".lazyload");
     
-    // Function to load file content
-    function loadMainHTMLContent() {
-        return new Promise((resolve, reject) => {
-            // Check if the screen size is greater than 759px
-            if (screenIsBig()) {
-                fetch('desktop_main_html.txt')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Error loading file');
-                        }
-                        return response.text();
-                    })
-                    .then(data => {
-                        document.getElementById('mainContent').insertAdjacentHTML("afterbegin", data);
-                        resolve("Main HTML content loaded successfully");
-                    })
-                    .catch(error => {
-                        console.error('Error loading file:', error);
-                        reject("Main HTML content loaded failed");
-                    });
-            } else {
-                fetch('main_html.txt')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Error loading file');
-                        }
-                        return response.text();
-                    })
-                    .then(data => {
-                        document.getElementById('mainContent').insertAdjacentHTML("afterbegin", data);
-                        resolve("Main HTML content loaded successfully");
-                    })
-                    .catch(error => {
-                        console.error('Error loading file:', error);
-                        reject("Main HTML content loaded failed");
-                    });
-            }
+        const lazyload = () => {
+        lazyloadImages.forEach(image => {
+            let src = image.getAttribute('data-src');
+                if (isDesktop) {
+                    src = "assets/images/desktop/" + src;
+                }else{
+                    src = "assets/images/" + src;
+                }
+                image.src = src;
+                image.onload = () => {
+                    image.style.opacity = 1;
+            };
         });
-    }
+        };
+        lazyload();
+        //Guidance Button script
+        document.querySelectorAll(".guidanceBtn").forEach(btn => {
+          btn.addEventListener("click", function() {
+              var targetId = this.getAttribute("data-guideTarget"); // Remove the "#" from href
+              console.log(targetId)
+              var targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                  var targetOffset = targetElement.offsetTop;
+                  window.scrollTo({
+                      top: targetOffset,
+                      behavior: "smooth" // Smooth scroll behavior
+                  });
+              }
+          })
+        });
+        //all const should be defined here
+        const signupButtons = document.querySelectorAll('.sign-up-btn');
+        const loginButtons = document.querySelectorAll('.sign-in-btn');
+        const signupModal = document.getElementById('signupModal');
+        const loginModal = document.getElementById('loginModal');
+        const closeModalButtons = document.querySelectorAll('.modal .delete, .modal .button');
+        const signUpForm = document.querySelector("#signupModal");
+        const logInForm = document.querySelector("#loginModal");
 
-    document.addEventListener("DOMContentLoaded", function() {
-        loadMainHTMLContent().then(response =>{
-            var isDesktop = screenIsBig();
+        const openModal = (modal) => {
+            modal.classList.add('is-active');
+        };
 
-            let lazyloadImages = document.querySelectorAll(".lazyload");
+        const closeModal = (modal) => {
+            modal.classList.remove('is-active');
+        };
+
+        signupButtons.forEach(signupButton => {
+          signupButton.addEventListener('click', () => openModal(signupModal));
+        });
         
-            const lazyload = () => {
-            lazyloadImages.forEach(image => {
-                let src = image.getAttribute('data-src');
-                    if (isDesktop) {
-                        src = "assets/images/desktop/" + src;
-                    }else{
-                        src = "assets/images/" + src;
-                    }
-                    image.src = src;
-                    image.onload = () => {
-                        image.style.opacity = 1;
-                };
-            });
-            };
-            lazyload();
-            //Guidance Button script
-            document.querySelectorAll(".guidanceBtn").forEach(btn => {
-              btn.addEventListener("click", function() {
-                  var targetId = this.getAttribute("data-guideTarget"); // Remove the "#" from href
-                  console.log(targetId)
-                  var targetElement = document.getElementById(targetId);
-                  if (targetElement) {
-                      var targetOffset = targetElement.offsetTop;
-                      window.scrollTo({
-                          top: targetOffset,
-                          behavior: "smooth" // Smooth scroll behavior
-                      });
-                  }
-              })
-            });
-            //Sign up and Sign in modal
-            const signupButtons = document.querySelectorAll('.sign-up-btn');
-            const loginButtons = document.querySelectorAll('.sign-in-btn');
-            const signupModal = document.getElementById('signupModal');
-            const loginModal = document.getElementById('loginModal');
-            const closeModalButtons = document.querySelectorAll('.modal .delete, .modal .button');
-
-            const openModal = (modal) => {
-                modal.classList.add('is-active');
-            };
-
-            const closeModal = (modal) => {
-                modal.classList.remove('is-active');
-            };
-
-            signupButtons.forEach(signupButton => {
-              signupButton.addEventListener('click', () => openModal(signupModal));
-            });
-            
-            loginButtons.forEach(loginButton => {
-              loginButton.addEventListener('click', () => openModal(loginModal));
-            });
-            
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    closeModal(signupModal);
-                    closeModal(loginModal);
-                });
-            });
-            //MOBILE's SCRIPT
-            if(!isDesktop){
-              //Script for toggling mobile menu
-              const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-              // Add a click event on each of them
-              $navbarBurgers.forEach( el => {
-                el.addEventListener('click', () => {
-
-                  // Get the target from the "data-target" attribute
-                  const target = el.dataset.target;
-                  const $target = document.getElementById(target);
-
-                  // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                  el.classList.toggle('is-active');
-                  $target.classList.toggle('is-active');
-
-                });
-              });
-            }
-        }).catch(response =>{
-            alert(response);
+        loginButtons.forEach(loginButton => {
+          loginButton.addEventListener('click', () => openModal(loginModal));
         });
+        
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                closeModal(signupModal);
+                closeModal(loginModal);
+            });
+        });
+        //MOBILE's SCRIPT
+        if(!isDesktop){
+          //Script for toggling mobile menu
+          const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+          // Add a click event on each of them
+          $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+        //Sign up and Sign in modal
+        signUpForm.addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent default form submission
+
+          let email = signUpForm.querySelector("input[name='email']").value;
+          let password = signUpForm.querySelector("input[name='password']").value;
+          let password2 = signUpForm.querySelector("input[name='password2']").value;
+          if(password != password2){
+            alert("Please make sure both your passwords matches.");
+            return;
+          }
+          //this point onwards, user is authenticated and will be write into database
+          createNewUserInFirebase(firebase, email, password)
+          .then((createdUser)=>{
+            logInUser(firebase, email, password)
+            .then(userObject => {
+              activateMasking();
+              let successPopUp = document.querySelector(`#successPopUp`);
+              let successPopUpTitle = successPopUp.querySelector(".title");
+              let successPopUpBody = successPopUp.querySelector("p");
+              successPopUpTitle.innerHTML = "Welcome OnBoard!";
+              successPopUpBody.innerHTML = "You can now browse the advices and content and provide feedback!";
+              successPopUp.style.display = 'block';
+            })
+            .catch(error => {
+              alert(error);
+            });
+          })
+          .catch(error => {
+            alert(error);
+          })
+        });
+        //Log In Form submitted:
+        logInForm.addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent default form submission
+
+          let email = logInForm.querySelector("input[name='email']").value;
+          let password = logInForm.querySelector("input[name='password']").value;
+          //this point onwards, user is authenticated and will be write into database
+          logInUser(firebase, email, password)
+          .then(userObject => {
+            activateMasking();
+            let successPopUp = document.querySelector(`#successPopUp`);
+            let successPopUpTitle = successPopUp.querySelector(".title");
+            let successPopUpBody = successPopUp.querySelector("p");
+            successPopUpTitle.innerHTML = "Welcome Back!";
+            successPopUpBody.innerHTML = "You are missed so much!";
+            successPopUp.style.display = 'block';
+          })
+          .catch(error => {
+            alert(error);
+          });
+        });
+        
+        firebase.auth().onAuthStateChanged(userObject => {
+          if (userObject) {
+            removeBlurryContent(); //remove the blurry content
+            removeAllClasses("content-placeholder"); //remove all before login content placeholder
+            user = userObject;
+            auth = firebase.auth().currentUser;
+            console.log(auth);
+            db = firebase.firestore();
+            ref = firebase.storage().ref();
+            updateUIForSignedInUser(user.email);
+            //Load advices into the page
+            const advicesRef = db.collection('advices');
+            var startAt = 1;
+            const loadCapacity = 3;
+            // Function to load advices from Firestore
+            if(!isDesktop){ //for mobile
+              startAt = loadAdvices(advicesRef, startAt, loadCapacity, deviceType="mobile")
+            }else{
+              startAt = loadAdvices(advicesRef, startAt, loadCapacity, deviceType="desktop");
+            }
+            //Load advices for under 6 feet people
+            var startAt2 = 1;
+            const loadCapacity2 = 3;
+            // Function to load advices from Firestore
+            if(!isDesktop){ //for mobile
+              startAt2 = loadUnder6Advices(advicesRef, startAt2, loadCapacity2, deviceType="mobile")
+            }else{
+              startAt2 = loadUnder6Advices(advicesRef, startAt2, loadCapacity2, deviceType="desktop");
+            }
+          } else {
+            // No user is signed in.
+          }
+        });
+    }).catch(response =>{
+        console.log(response);
     });
+});
 </script>
 </body>
 </html>

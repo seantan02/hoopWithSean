@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/path/to/bulma-timeline.min.css" />
 </head>
 <body class="has-background-light">
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://bulma.io">
         <img src="assets/images/logo.svg" alt="Logo">
@@ -92,26 +92,11 @@
               
               <!-- Nice looking grey line -->
               <hr class="is-hidden-touch">
-      
-              <!-- Bold title -->
-              <h2 class="title is-2">What brings you to HoopWithSean?</h2>
-      
-              <!-- A nice survey with a question on top and some tick boxes below it -->
-              <form class="box" method="POST" action="">
-                  <div class="field">
-                  <input id="option1" type="checkbox" class="is-checkradio">
-                  <label for="option1">I am losing inspiration to hoop</label>
-                  </div>
-                  <div class="field">
-                  <input id="option2" type="checkbox" class="is-checkradio">
-                  <label for="option2">I need some unordinary advices</label>
-                  </div>
-                  <div class="field">
-                  <input id="option3" type="checkbox" class="is-checkradio">
-                  <label for="option3">I want to know about Sean's journey</label>
-                  </div>
-                  <button class="button is-primary" disabled>Submit</button>
-              </form>
+
+              <h2 class="title is-2">Welcome to HoopWithSean!</h2>
+              <p>
+                This is a single page application so please enjoy the page by just scrolling! Have fun!
+              </p>
       
               <!-- Nice framed image -->
               <figure class="image is-3by4 position-relative">
@@ -190,71 +175,59 @@
           </figure>
       </section>
       <!-- ADvise Section -->
-      <section class="section">
-        <div class="container" style="position: relative;">
-            <div class="blurred-content">
-              <div class="mt-5" style="text-align: center;">
-                <h2 class="is-size-4 has-text-white has-text-weight-semibold">
-                  Sign Up/Log In to continue reading
-                </h2>
-                <div class="mt-5">
-                  <a class="button is-primary sign-up-btn">
-                    <strong>Sign up</strong>
-                  </a>
-                  <a class="button is-light sign-in-btn">
-                    Log in
-                  </a>
-                </div>
+      <section class="section box" style="position: relative;">
+          <div class="blurred-content">
+            <div class="mt-5" style="text-align: center;">
+              <h2 class="is-size-4 has-text-white has-text-weight-semibold">
+                Sign Up/Log In to continue reading
+              </h2>
+              <div class="mt-5">
+                <a class="button is-primary sign-up-btn">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light sign-in-btn">
+                  Log in
+                </a>
               </div>
             </div>
-            <style>
-            iframe{
-              width: 95%;
-              max-width: 560px;
-              height: 35vh;
-              max-height: 315px;
-            }
-            </style>
-            <div class="is-centered">
-                <div class="box">
-                    <h2 class="title is-2">Sean's Advice</h2>
-                    <h4 class="title is-5">For Everyone:</h2>
-                    <div class="box has-background-black has-text-white">
-                        <h3 class="is-size-3 has-text-weight-semibold">Advice 1: It's all about TURNOVERS</h3>
-                        <!-- Embedded YouTube Video -->
-                        <div>
-                          <div>
-                            <iframe src="https://www.youtube.com/embed/FwvEXZjpcr4?si=SVgm5vPj5TNhy_MO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                          </div>
-                          <!-- Explanation Paragraph -->
-                          <p class="pl-2">A lot of players even NBA players has the problem of having turnovers, so does everyone else. Most people only focus on how to score a 50-piece, when they turn the ball over more than 50 points worth of position. Learn how to protect your ball, how to make good passes, how to catch ball while sprinting and not turnover, and more. If you can play a whole game of basketball with 0 turnover, good job, you are already on top of so many people.</p>
-                        </div>
-                    </div>
-                    <div class="box has-background-black has-text-white">
-                      <h3 class="is-size-3 has-text-weight-semibold">Advice 2: Make free throws before 3 pointers</h3>
-                      <!-- Embedded YouTube Video -->
-                      <div>
-                        <div>
-                          <iframe src="https://www.youtube.com/embed/SDyxq_--PTQ?si=6azL24MKd1Uv5ewG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                        <!-- Explanation Paragraph -->
-                        <p class="pl-2">Who doesn't want to be Stephen Curry, right? But hey, all you see on TV is him after endless hours of shots training for YEARS! If you notice, his free throw percentage is insanely high. Focus on a smooth looking textbook-kinda shooting form first, then start using it to shoot every day from close to the rim to free throw then to 3 pointers. One thing I always like saying is that "If you have to push your arms to shoot, you are not shooting, you are throwing so take one step closer and retry".</p>
-                      </div>
-                  </div>
-                  <div class="box has-background-black has-text-white">
-                    <h3 class="is-size-3 has-text-weight-semibold">Advice 3: Take your time on offense</h3>
-                    <!-- Embedded YouTube Video -->
-                    <div>
-                      <div>
-                        <iframe src="https://www.youtube.com/embed/SDyxq_--PTQ?si=6azL24MKd1Uv5ewG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                      </div>
-                      <!-- Explanation Paragraph -->
-                      <p class="pl-2">Who doesn't want to be Stephen Curry, right? But hey, all you see on TV is him after endless hours of shots training for YEARS! If you notice, his free throw percentage is insanely high. Focus on a smooth looking textbook-kinda shooting form first, then start using it to shoot every day from close to the rim to free throw then to 3 pointers. One thing I always like saying is that "If you have to push your arms to shoot, you are not shooting, you are throwing so take one step closer and retry".</p>
-                    </div>
+          </div>
+          <style>
+          iframe{
+            width: 95%;
+            max-width: 560px;
+            height: 35vh;
+            max-height: 315px;
+          }
+          </style>
+          <div id="advices">
+            <h2 class="title is-2">Sean's Advice</h2>
+            <h4 class="title is-5">For Everyone:</h2>
+            <div class="box has-background-black has-text-white content-placeholder">
+              <h3 class="is-size-3 has-text-weight-semibold">Advice 1: Make free throws before 3 pointers</h3>
+              <!-- Embedded YouTube Video -->
+              <div>
+                <div>
+                  <iframe src="https://www.youtube.com/embed/SDyxq_--PTQ?si=6azL24MKd1Uv5ewG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
-                </div>
+                <!-- Explanation Paragraph -->
+                <p class="pl-2">Who doesn't want to be Stephen Curry, right? But hey, all you see on TV is him after endless hours of shots training for YEARS! If you notice, his free throw percentage is insanely high. Focus on a smooth looking textbook-kinda shooting form first, then start using it to shoot every day from close to the rim to free throw then to 3 pointers. One thing I always like saying is that "If you have to push your arms to shoot, you are not shooting, you are throwing so take one step closer and retry".</p>
+              </div>
             </div>
-        </div>
+          </div>
+          <div id="advicesUnder6 mt-5">
+            <h4 class="title is-5">For People Under 6 Feet:</h2>
+            <div class="box has-background-black has-text-white content-placeholder">
+              <h3 class="is-size-3 has-text-weight-semibold">Advice 1: Make free throws before 3 pointers</h3>
+              <!-- Embedded YouTube Video -->
+              <div>
+                <div>
+                  <iframe src="https://www.youtube.com/embed/SDyxq_--PTQ?si=6azL24MKd1Uv5ewG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <!-- Explanation Paragraph -->
+                <p class="pl-2">Who doesn't want to be Stephen Curry, right? But hey, all you see on TV is him after endless hours of shots training for YEARS! If you notice, his free throw percentage is insanely high. Focus on a smooth looking textbook-kinda shooting form first, then start using it to shoot every day from close to the rim to free throw then to 3 pointers. One thing I always like saying is that "If you have to push your arms to shoot, you are not shooting, you are throwing so take one step closer and retry".</p>
+              </div>
+            </div>
+          </div>
       </section>
     </main>      
     <footer class="footer">

@@ -1,3 +1,31 @@
+/* THis is for the Masking */
+#mask {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    /* Apply the masking effect */
+    -webkit-backdrop-filter: brightness(0.5);
+    backdrop-filter: brightness(0.5);
+    /* Define how the mask should repeat or not */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    /* Define the positioning of the mask */
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    /* Define the size of the mask */
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    z-index: 95;
+    pointer-events: none;
+}
+#mask.active{
+    display: block;
+}
 /* For timeline */
 .timeline .timeline-header {
     width: 6em;
@@ -134,4 +162,16 @@ border-color: #ff3860 !important;
 img{
     border-radius: 5px;
 }
-/* For YouTube */
+/* For Pop Up */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 96;
+    transition: 2s;
+}

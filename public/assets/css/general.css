@@ -1,9 +1,12 @@
 .blurred-content {
     position: absolute;
+    z-index: 94;
     width: 100%;
     top: 23%;
     left: 0;
     right: 0;
     bottom: 0;
-    backdrop-filter: blur(5px);
+    background: #a0a0a015; /* I found this color of blur to work for me better*/
+    -webkit-backdrop-filter: blur(5px); /* Add this line first, it fixes blur for Safari*/
+    backdrop-filter: blur(5px);  /* This line activates blur*/
 }
