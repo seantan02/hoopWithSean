@@ -65,6 +65,7 @@ function createDesktopAdviceHTML(title, video_url, bodytext, adviceId){
   adviceDiv.classList.add("box");
   adviceDiv.classList.add("has-background-black");
   adviceDiv.classList.add("has-text-white");
+  adviceDiv.classList.add("searchable-content");
   let adviceTitle = document.createElement("h3");
   adviceTitle.classList.add("is-size-3");
   adviceTitle.classList.add("has-text-weight-semibold");
@@ -117,6 +118,7 @@ function createMobileAdviceHTML(title, video_url, bodytext, adviceId){
   adviceDiv.classList.add("box");
   adviceDiv.classList.add("has-background-black");
   adviceDiv.classList.add("has-text-white");
+  adviceDiv.classList.add("searchable-content");
   let adviceTitle = document.createElement("h3");
   adviceTitle.classList.add("is-size-3");
   adviceTitle.classList.add("has-text-weight-semibold");
@@ -208,7 +210,7 @@ function loadUnder6Advices(advicesRef, startAt, loadCapacity, deviceType = "mobi
 //functions to create user in firebase
 /**
  * This function create a new user in firebase
- * @param {firebase object} firebaseAuth should be already auth()
+ * @param {firebase object} firebase
  * @param {string} email 
  * @param {string} password 
  * @returns user object is created, otherwise null;
@@ -232,7 +234,7 @@ function createNewUserInFirebase(firebase, email, password){
 //functions to sign user in firebase
 /**
  * This function sign a user in firebase
- * @param {firebase object} firebaseAuth should be already auth()
+ * @param {firebase object} firebase
  * @param {string} email 
  * @param {string} password 
  * @returns user object if is valid, otherwise null;
@@ -253,7 +255,21 @@ function logInUser(firebase, email, password){
     });
   });  
 };
-
+//functions to sign user OUT firebase
+/**
+ * This function sign a user out firebase
+ * @param {firebase object} firebase
+ * @returns user object if is valid, otherwise null;
+ */
+function logOutUser(firebase){
+  return  new Promise((resolve, reject) => {
+    firebase.auth().signOut().then(function() {
+      resolve({status: 1, message: "User signed out successfully"});
+    }).catch(function(error) {
+      reject({status:0, message: error});
+    });
+  });  
+};
 function updateNavbarForSignedInUser(userEmail, navbarId){
   let navbarEnd = document.createElement("div");
   navbarEnd.classList.add("navbar-end");
@@ -269,8 +285,13 @@ function updateNavbarForSignedInUser(userEmail, navbarId){
   let dropdownItem = document.createElement("a");
   dropdownItem.classList.add("navbar-item");
   dropdownItem.innerHTML = "Profile";
+  let dropdownItem2 = document.createElement("a");
+  dropdownItem2.classList.add("navbar-item");
+  dropdownItem2.classList.add("sign-out-btn");
+  dropdownItem2.innerHTML = "Sign Out";
   //assemble
   dropdownWrapper.appendChild(dropdownItem);
+  dropdownWrapper.appendChild(dropdownItem2);
   navbarItemDropdownWrapper.appendChild(userEmailAsDropdown);
   navbarItemDropdownWrapper.appendChild(dropdownWrapper);
   navbarEnd.appendChild(navbarItemDropdownWrapper);
@@ -282,15 +303,63 @@ function updateNavbarForSignedInUser(userEmail, navbarId){
   //add the new navbar-end
   navMenu.appendChild(navbarEnd);
 }
-
 function removeAllClasses(className){
   //1st replace the navbar UI
   document.querySelectorAll(`.${className}`).forEach( skeleton => {
     skeleton.remove();
   })
 }
-
 function updateUIForSignedInUser(userEmail){
   //1st replace the navbar UI
   updateNavbarForSignedInUser(userEmail, "navbar");
+}
+//showing success pop up
+function showSuccessPopUp(title, body){
+  return new Promise((resolve, reject)=>{
+    try{
+      let successPopUp = document.querySelector(`#successPopUp`);
+      let successPopUpTitle = successPopUp.querySelector(".title");
+      let successPopUpBody = successPopUp.querySelector("p");
+      successPopUpTitle.innerHTML = title;
+      successPopUpBody.innerHTML = body;
+      successPopUp.style.display = 'block';
+      resolve({status:1, message: "Successfully activate success pop-up"});
+    }catch(error){
+      reject({status:0, message: error});
+    }
+  })
+}
+/** Implementation of Searching from firestore */
+function searchFromFireStore(firestore, collection, searchKey) {
+  // Fetch data from Firestore and insert into trie
+  return new Promise((resolve, reject) => {
+    let results = [];
+    let searchResultWrapper = document.querySelector("#searchResultsDisplayBox");
+    firestore.collection(collection).get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if(doc.data().title.toLowerCase().includes(searchKey) || doc.data().body.toLowerCase().includes(searchKey)){
+          let searchResult = document.createElement("div");
+          searchResult.classList.add("search-result");
+          searchResult.setAttribute("title", doc.data().title);
+          searchResult.setAttribute("body", doc.data().body);
+          searchResult.setAttribute("video_url", doc.data().video_url);
+          let titleWrapper = document.createElement("div");
+          titleWrapper.classList.add("search-result-info");
+          titleWrapper.classList.add("info");
+          let title = document.createElement("h3");
+          title.classList.add("search-result-title");
+          title.innerHTML = doc.data().title;
+          //assemble
+          titleWrapper.appendChild(title);
+          searchResult.appendChild(titleWrapper);
+          searchResultWrapper.appendChild(searchResult);
+        }
+      });
+      searchResultWrapper.classList.add("active");
+      resolve({status:1, message: "Trie built successfully", results: results});
+    }).catch((error) => {
+      reject({status:0, message: error});
+    });
+  })
 }

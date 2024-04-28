@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hoop with Sean</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="/path/to/bulma-timeline.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/general.css"> 
 </head>
 <body class="has-background-light is-relative">
     <div class="mask" id="mask"></div>
@@ -50,11 +50,13 @@
           <div class="navbar-item">
             <div class="field">
               <p class="control has-icons-left">
-                <input class="input" type="text" placeholder="Search...">
+                <input class="input" type="text" name="search" placeholder="Search...">
                 <span class="icon is-left">
                   <i class="fas fa-search" aria-hidden="true"></i>
                 </span>
               </p>
+            </div>
+            <div id="searchResultsDisplayBox" class="search-results-display-box">
             </div>
           </div>
           <div class="navbar-end">
@@ -67,6 +69,17 @@
                   Log in
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+        <!-- Search Results Dropdown -->
+        <div id="searchResultsDropdown" class="navbar-dropdown is-boxed is-right">
+          <div class="dropdown-content">
+            <div class="search-result">
+                <img src="image1.jpg" alt="Image 1" class="search-result-image">
+                <div class="search-result-info">
+                    <h3 class="search-result-title">Title 1</h3>
+                </div>
             </div>
           </div>
         </div>
@@ -186,6 +199,7 @@
 <!-- SHA-256 encryption needed-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <!-- This script contains all the functions for that is used below-->
+<script src="assets/js/trie.js"></script> <!-- Trie data structure -->
 <script src="assets/js/functions.js"></script>
 <script>
 const firebaseConfig = {
@@ -305,12 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
             logInUser(firebase, email, password)
             .then(userObject => {
               activateMasking();
-              let successPopUp = document.querySelector(`#successPopUp`);
-              let successPopUpTitle = successPopUp.querySelector(".title");
-              let successPopUpBody = successPopUp.querySelector("p");
-              successPopUpTitle.innerHTML = "Welcome OnBoard!";
-              successPopUpBody.innerHTML = "You can now browse the advices and content and provide feedback!";
-              successPopUp.style.display = 'block';
+              showSuccessPopUp("Welcome OnBoard!", "You can now browse the advices and content and provide feedback!");
             })
             .catch(error => {
               alert(error);
@@ -330,49 +339,94 @@ document.addEventListener("DOMContentLoaded", function() {
           logInUser(firebase, email, password)
           .then(userObject => {
             activateMasking();
-            let successPopUp = document.querySelector(`#successPopUp`);
-            let successPopUpTitle = successPopUp.querySelector(".title");
-            let successPopUpBody = successPopUp.querySelector("p");
-            successPopUpTitle.innerHTML = "Welcome Back!";
-            successPopUpBody.innerHTML = "You are missed so much!";
-            successPopUp.style.display = 'block';
+            showSuccessPopUp("Welcome back!", "We miss you so much :(");
           })
           .catch(error => {
             alert(error);
           });
         });
-        
+
         firebase.auth().onAuthStateChanged(userObject => {
           if (userObject) {
-            removeBlurryContent(); //remove the blurry content
-            removeAllClasses("content-placeholder"); //remove all before login content placeholder
-            user = userObject;
-            auth = firebase.auth().currentUser;
-            console.log(auth);
-            db = firebase.firestore();
-            ref = firebase.storage().ref();
-            updateUIForSignedInUser(user.email);
-            //Load advices into the page
-            const advicesRef = db.collection('advices');
-            var startAt = 1;
-            const loadCapacity = 3;
-            // Function to load advices from Firestore
-            if(!isDesktop){ //for mobile
-              startAt = loadAdvices(advicesRef, startAt, loadCapacity, deviceType="mobile")
-            }else{
-              startAt = loadAdvices(advicesRef, startAt, loadCapacity, deviceType="desktop");
-            }
-            //Load advices for under 6 feet people
-            var startAt2 = 1;
-            const loadCapacity2 = 3;
-            // Function to load advices from Firestore
-            if(!isDesktop){ //for mobile
-              startAt2 = loadUnder6Advices(advicesRef, startAt2, loadCapacity2, deviceType="mobile")
-            }else{
-              startAt2 = loadUnder6Advices(advicesRef, startAt2, loadCapacity2, deviceType="desktop");
-            }
-          } else {
-            // No user is signed in.
+            userObject.getIdTokenResult()
+            .then((userIdToken => {
+              removeBlurryContent(); //remove the blurry content
+              removeAllClasses("content-placeholder"); //remove all before login content placeholder
+              user = userObject;
+              auth = firebase.auth().currentUser;
+              console.log(auth);
+              db = firebase.firestore();
+              ref = firebase.storage().ref();
+              updateUIForSignedInUser(user.email);
+              //sign out btn
+              document.querySelectorAll(".sign-out-btn").forEach(signOutBtn => {
+                console.log("ASD");
+                signOutBtn.addEventListener("click", (event) => {
+                  logOutUser(firebase)
+                  .then(success => {
+                    showSuccessPopUp("Logged Out", "You are logged out successfully.");
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 3000);
+                  })
+                  .catch(error => {
+                    alert(`Failed to log you out due to ${error.message} `);
+                  })
+                });
+              })
+              //Load advices into the page
+              const advicesRef = db.collection('advices');
+              var startAt = 1;
+              const loadCapacity = 3;
+              // Function to load advices from Firestore
+              if(!isDesktop){ //for mobile
+                startAt = loadAdvices(advicesRef, startAt, loadCapacity, deviceType="mobile")
+              }else{
+                startAt = loadAdvices(advicesRef, startAt, loadCapacity, deviceType="desktop");
+              }
+              //Load advices for under 6 feet people
+              var startAt2 = 1;
+              const loadCapacity2 = 3;
+              // Function to load advices from Firestore
+              if(!isDesktop){ //for mobile
+                startAt2 = loadUnder6Advices(advicesRef, startAt2, loadCapacity2, deviceType="mobile")
+              }else{
+                startAt2 = loadUnder6Advices(advicesRef, startAt2, loadCapacity2, deviceType="desktop");
+              }
+
+              var timeout = null;
+              var trie = new Trie();
+              // Example usage:
+              const inputElement = document.querySelector("input[name='search']");
+              inputElement.addEventListener('keydown', function(e1) {
+                  if (e1.code == 'Enter' || e1.keyCode == 13) {
+                    let searchKey = e1.target.value;
+                    console.log(searchKey);
+                    searchFromFireStore(db, "advices", searchKey)
+                    .then(success =>{
+                      document.querySelectorAll(".search-result").forEach(searchResult => {
+                        searchResult.addEventListener("click", function(e2){
+                          activateMasking();
+                          showSuccessPopUp(this.getAttribute("title"), this.getAttribute("body"));
+                          document.querySelector("#searchResultsDisplayBox").innerHTML = "";
+                        })
+                      })
+                    })
+                    .catch(error => {
+                      console.log(error);
+                    })
+                  }
+              });
+            }))
+            .catch(error => {
+              logOutUser(firebase)
+              .then((success) => {
+                showSuccessPopUp("Logged Out", "You are logged out successfully.");
+              })
+              .catch(error=>{
+                alert(error.message);
+              })
+            })
           }
         });
     }).catch(response =>{
