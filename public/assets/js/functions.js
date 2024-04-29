@@ -1,23 +1,51 @@
+/**
+ * Hashes the given password using SHA256 algorithm.
+ * @param {string} password The password to be hashed.
+ * @returns {string} The hashed password.
+ */
 function hashPassword(password) {
   return CryptoJS.SHA256(password).toString();
 }
-// Function to check screen size
+
+/**
+ * Checks if the screen size is big (greater than or equal to 1024 pixels).
+ * @returns {boolean} True if the screen size is big, otherwise false.
+ */
 function screenIsBig() {
-    return window.innerWidth > 745; // Change the value according to your requirement
+    return window.innerWidth >= 1024; // Change the value according to your requirement
 }
-//hide and show masking
+
+/**
+ * Activates masking by adding 'active' class to the mask element.
+ */
 function activateMasking(){
   document.querySelector("#mask").classList.add("active");
 }
 
+function openModal(modal){
+  modal.classList.add('is-active');
+};
+
+function closeModal(modal){
+  modal.classList.remove('is-active');
+};
+
+/**
+ * Deactivates masking by removing 'active' class from the mask element.
+ */
 function deactivateMasking(){
   document.querySelector("#mask").classList.remove("active");
 }
-// Function to load file content
+
+/**
+ * Loads main HTML content based on the screen size.
+ * @returns {Promise<string>} A promise that resolves to a status message indicating success or failure of loading main HTML content.
+ */
 function loadMainHTMLContent() {
     return new Promise((resolve, reject) => {
         // Check if the screen size is greater than 759px
         if (screenIsBig()) {
+            // Load desktop main HTML content
             fetch('desktop_main_html.txt')
                 .then(response => {
                     if (!response.ok) {
@@ -26,14 +54,14 @@ function loadMainHTMLContent() {
                     return response.text();
                 })
                 .then(data => {
-                    document.getElementById('mainContent').insertAdjacentHTML("afterbegin", data);
+                    document.getElementById('mainContent').innerHTML += data;
                     resolve("Main HTML content loaded successfully");
                 })
                 .catch(error => {
-                    console.error('Error loading file:', error);
                     reject("Main HTML content loaded failed");
                 });
         } else {
+            // Load mobile main HTML content
             fetch('main_html.txt')
                 .then(response => {
                     if (!response.ok) {
@@ -42,24 +70,34 @@ function loadMainHTMLContent() {
                     return response.text();
                 })
                 .then(data => {
-                    document.getElementById('mainContent').insertAdjacentHTML("afterbegin", data);
+                  document.getElementById('mainContent').innerHTML += data;
                     resolve("Main HTML content loaded successfully");
                 })
                 .catch(error => {
-                    console.error('Error loading file:', error);
                     reject("Main HTML content loaded failed");
                 });
         }
     });
 }
-//removing blurred content
+
+/**
+ * Removes blurred content from the document.
+ */
 function removeBlurryContent() {
   const blurryContents = document.querySelectorAll(".blurred-content");
   blurryContents.forEach((element) => {
     element.remove();
   });
 }
-//function to create content HTML
+
+/**
+ * Creates HTML content for desktop view with the provided data.
+ * @param {string} title The title of the advice.
+ * @param {string} video_url The URL of the video associated with the advice.
+ * @param {string} bodytext The body text of the advice.
+ * @param {string} adviceId The ID of the advice.
+ * @returns {HTMLElement} The HTML element representing the advice content.
+ */
 function createDesktopAdviceHTML(title, video_url, bodytext, adviceId){
   let adviceDiv = document.createElement('div');
   adviceDiv.classList.add("box");
@@ -88,16 +126,20 @@ function createDesktopAdviceHTML(title, video_url, bodytext, adviceId){
   feedbackWrapper.classList.add("mt-3");
   let likeBtn = document.createElement("button");
   likeBtn.classList.add("button");
+  likeBtn.classList.add("content-reaction-btn");
   likeBtn.classList.add("is-normal");
-  likeBtn.classList.add("is-success");
+  likeBtn.classList.add("is-primary");
   likeBtn.classList.add("mr-2");
-  likeBtn.setAttribute("onclick", `like_content('${adviceId}')`);
+  likeBtn.setAttribute("data-adviceId", `${adviceId}`);
+  likeBtn.setAttribute("data-type", `like`);
   likeBtn.innerHTML = "Helpful!"
   let dislikeBtn = document.createElement("button");
   dislikeBtn.classList.add("button");
+  dislikeBtn.classList.add("content-reaction-btn");
   dislikeBtn.classList.add("is-normal");
   dislikeBtn.classList.add("is-danger");
-  dislikeBtn.setAttribute("onclick", `dislike_content('${adviceId}')`);
+  dislikeBtn.setAttribute("data-adviceId", `${adviceId}`);
+  dislikeBtn.setAttribute("data-type", `dislike`);
   dislikeBtn.innerHTML = "Unhelpful!"
   let content = document.createElement("p");
   content.classList.add("pl-2");
@@ -113,6 +155,15 @@ function createDesktopAdviceHTML(title, video_url, bodytext, adviceId){
   adviceDiv.appendChild(feedbackWrapper);
   return adviceDiv;
 }
+
+/**
+ * Creates HTML content for mobile view with the provided data.
+ * @param {string} title The title of the advice.
+ * @param {string} video_url The URL of the video associated with the advice.
+ * @param {string} bodytext The body text of the advice.
+ * @param {string} adviceId The ID of the advice.
+ * @returns {HTMLElement} The HTML element representing the advice content.
+ */
 function createMobileAdviceHTML(title, video_url, bodytext, adviceId){
   let adviceDiv = document.createElement('div');
   adviceDiv.classList.add("box");
@@ -138,16 +189,20 @@ function createMobileAdviceHTML(title, video_url, bodytext, adviceId){
   feedbackWrapper.classList.add("mt-3");
   let likeBtn = document.createElement("button");
   likeBtn.classList.add("button");
+  likeBtn.classList.add("content-reaction-btn");
   likeBtn.classList.add("is-normal");
-  likeBtn.classList.add("is-success");
+  likeBtn.classList.add("is-primary");
   likeBtn.classList.add("mr-2");
-  likeBtn.setAttribute("onclick", `like_content('${adviceId}')`);
+  likeBtn.setAttribute("data-adviceId", `${adviceId}`);
+  likeBtn.setAttribute("data-type", `like`);
   likeBtn.innerHTML = "Helpful!"
   let dislikeBtn = document.createElement("button");
   dislikeBtn.classList.add("button");
+  dislikeBtn.classList.add("content-reaction-btn");
   dislikeBtn.classList.add("is-normal");
   dislikeBtn.classList.add("is-danger");
-  dislikeBtn.setAttribute("onclick", `dislike_content('${adviceId}')`);
+  dislikeBtn.setAttribute("data-adviceId", `${adviceId}`);
+  dislikeBtn.setAttribute("data-type", `dislike`);
   dislikeBtn.innerHTML = "Unhelpful!"
   let content = document.createElement("p");
   content.classList.add("pl-2");
@@ -163,57 +218,74 @@ function createMobileAdviceHTML(title, video_url, bodytext, adviceId){
   adviceDiv.appendChild(feedbackWrapper);
   return adviceDiv;
 }
-//function to query from firestore for advices content
+
+/**
+ * Loads advices from Firestore based on specified criteria.
+ * @param {firebase.firestore.CollectionReference} advicesRef The reference to the Firestore collection containing advices.
+ * @param {number} startAt The index from which to start loading advices.
+ * @param {number} loadCapacity The maximum number of advices to load.
+ * @param {string} deviceType The type of device (either "mobile" or "desktop").
+ * @returns {Promise<number>} A promise that resolves with the index of the next batch of advices to load.
+ */
 function loadAdvices(advicesRef, startAt, loadCapacity, deviceType = "mobile"){
   // Query Firestore for advices ordered by popularity
-  advicesRef.where("everyone", "==", true).orderBy('popularity').startAt(startAt).limit(loadCapacity).get()
-  .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        let adviceData = doc.data();
-        let adviceDiv;
-        if(deviceType == "mobile"){
-          adviceDiv = createMobileAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
-        }else{
-          adviceDiv = createDesktopAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
-        }
-        document.getElementById('advices').appendChild(adviceDiv);
-      });
-      return startAt+loadCapacity;
+  return new Promise((resolve, reject) => {
+    advicesRef.where("everyone", "==", true).orderBy('popularity').startAt(startAt).limit(loadCapacity).get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let adviceData = doc.data();
+          let adviceDiv;
+          if(deviceType == "mobile"){
+            adviceDiv = createMobileAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
+          }else{
+            adviceDiv = createDesktopAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
+          }
+          document.getElementById('advices').appendChild(adviceDiv);
+        });
+        resolve(startAt+loadCapacity);
+    })
+    .catch((error) => {
+     reject(`Error getting more advices: ${error}`);
+    });
   })
-  .catch((error) => {
-    console.log(`Error getting more advices: ${error}`);
-    return startAt;
-  });
-};
-//Load advices for under 6 feet content
-function loadUnder6Advices(advicesRef, startAt, loadCapacity, deviceType = "mobile"){
-  // Query Firestore for advices ordered by popularity
-  advicesRef.where("everyone", "==", false).orderBy('popularity').startAt(startAt).limit(loadCapacity).get()
-  .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        let adviceData = doc.data();
-        let adviceDiv;
-        if(deviceType == "mobile"){
-          adviceDiv = createMobileAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
-        }else{
-          adviceDiv = createDesktopAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
-        }
-        document.getElementById('advicesUnder6').appendChild(adviceDiv);
-      });
-      return startAt+loadCapacity;
-  }).catch((error) => {
-      console.log(`Error getting more advices: ${error}`);
-      return startAt;
-  });
 };
 
-//functions to create user in firebase
 /**
- * This function create a new user in firebase
- * @param {firebase object} firebase
- * @param {string} email 
- * @param {string} password 
- * @returns user object is created, otherwise null;
+ * Loads advices for users under 6 feet from Firestore based on specified criteria.
+ * @param {firebase.firestore.CollectionReference} advicesRef The reference to the Firestore collection containing advices.
+ * @param {number} startAt The index from which to start loading advices.
+ * @param {number} loadCapacity The maximum number of advices to load.
+ * @param {string} deviceType The type of device (either "mobile" or "desktop").
+ * @returns {Promise<number>} A promise that resolves with the index of the next batch of advices to load.
+ */
+function loadUnder6Advices(advicesRef, startAt, loadCapacity, deviceType = "mobile"){
+  // Query Firestore for advices ordered by popularity
+  return new Promise((resolve, reject)=>{
+    advicesRef.where("everyone", "==", false).orderBy('popularity').startAt(startAt).limit(loadCapacity).get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          let adviceData = doc.data();
+          let adviceDiv;
+          if(deviceType == "mobile"){
+            adviceDiv = createMobileAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
+          }else{
+            adviceDiv = createDesktopAdviceHTML(adviceData.title, adviceData.video_url, adviceData.body, doc.id);
+          }
+          document.getElementById('advicesUnder6').appendChild(adviceDiv);
+        });
+        resolve(startAt+loadCapacity);
+    }).catch((error) => {
+        reject(`Error getting more advices: ${error}`);
+    });
+  })
+};
+
+/**
+ * Creates a new user in Firebase authentication.
+ * @param {firebase.app.App} firebase The Firebase app instance.
+ * @param {string} email The email address of the user.
+ * @param {string} password The password of the user.
+ * @returns {Promise<firebase.auth.UserCredential>} A promise that resolves with the user credential if successful.
  */
 function createNewUserInFirebase(firebase, email, password){
   let hashedPassword = hashPassword(password);
@@ -227,17 +299,18 @@ function createNewUserInFirebase(firebase, email, password){
       // Handle errors
       const errorCode = error.code;
       const errorMessage = error.message;
-      reject({errorCode, errorMessage});
+      reject({status : errorCode, message:errorMessage});
     });
   })
 }
-//functions to sign user in firebase
+
+
 /**
- * This function sign a user in firebase
- * @param {firebase object} firebase
- * @param {string} email 
- * @param {string} password 
- * @returns user object if is valid, otherwise null;
+ * Signs in a user using Firebase authentication.
+ * @param {firebase.app.App} firebase The Firebase app instance.
+ * @param {string} email The email address of the user.
+ * @param {string} password The password of the user.
+ * @returns {Promise<firebase.User>} A promise that resolves with the user object if authentication is successful.
  */
 function logInUser(firebase, email, password){
   let hashedPassword = hashPassword(password);
@@ -251,15 +324,15 @@ function logInUser(firebase, email, password){
       // Handle errors
       const errorCode = error.code;
       const errorMessage = error.message;
-      reject({errorCode, errorMessage});
+      reject({status : errorCode, message:errorMessage});
     });
   });  
 };
-//functions to sign user OUT firebase
+
 /**
- * This function sign a user out firebase
- * @param {firebase object} firebase
- * @returns user object if is valid, otherwise null;
+ * Signs out the current user from Firebase authentication.
+ * @param {firebase.app.App} firebase The Firebase app instance.
+ * @returns {Promise<{status: number, message: string}>} A promise that resolves with a status message indicating the sign-out result.
  */
 function logOutUser(firebase){
   return  new Promise((resolve, reject) => {
@@ -270,6 +343,12 @@ function logOutUser(firebase){
     });
   });  
 };
+
+/**
+ * Updates the navbar UI for a signed-in user.
+ * @param {string} userEmail The email address of the signed-in user.
+ * @param {string} navbarId The ID of the navbar element.
+ */
 function updateNavbarForSignedInUser(userEmail, navbarId){
   let navbarEnd = document.createElement("div");
   navbarEnd.classList.add("navbar-end");
@@ -284,14 +363,10 @@ function updateNavbarForSignedInUser(userEmail, navbarId){
   dropdownWrapper.classList.add("navbar-dropdown");
   let dropdownItem = document.createElement("a");
   dropdownItem.classList.add("navbar-item");
-  dropdownItem.innerHTML = "Profile";
-  let dropdownItem2 = document.createElement("a");
-  dropdownItem2.classList.add("navbar-item");
-  dropdownItem2.classList.add("sign-out-btn");
-  dropdownItem2.innerHTML = "Sign Out";
+  dropdownItem.classList.add("sign-out-btn");
+  dropdownItem.innerHTML = "Sign Out";
   //assemble
   dropdownWrapper.appendChild(dropdownItem);
-  dropdownWrapper.appendChild(dropdownItem2);
   navbarItemDropdownWrapper.appendChild(userEmailAsDropdown);
   navbarItemDropdownWrapper.appendChild(dropdownWrapper);
   navbarEnd.appendChild(navbarItemDropdownWrapper);
@@ -307,17 +382,34 @@ function updateNavbarForSignedInUser(userEmail, navbarId){
     searchbarWrapper.classList.add("active");
   })
 }
+
+/**
+ * Removes all elements with the specified class name from the document.
+ * @param {string} className The class name of elements to be removed.
+ */
 function removeAllClasses(className){
   //1st replace the navbar UI
   document.querySelectorAll(`.${className}`).forEach( skeleton => {
     skeleton.remove();
   })
 }
+
+/**
+ * Updates the UI for a signed-in user.
+ * @param {string} userEmail The email address of the signed-in user.
+ */
 function updateUIForSignedInUser(userEmail){
   //1st replace the navbar UI
   updateNavbarForSignedInUser(userEmail, "navbar");
 }
-//showing success pop up
+
+
+/**
+ * Displays a success pop-up with the given title and body.
+ * @param {string} title The title of the success pop-up.
+ * @param {string} body The body text of the success pop-up.
+ * @returns {Promise<{status: number, message: string}>} A promise that resolves with a status message indicating the result of displaying the pop-up.
+ */
 function showSuccessPopUp(title, body){
   return new Promise((resolve, reject)=>{
     try{
@@ -326,15 +418,21 @@ function showSuccessPopUp(title, body){
       let successPopUpBody = successPopUp.querySelector("p");
       successPopUpTitle.innerHTML = title;
       successPopUpBody.innerHTML = body;
-      successPopUp.style.display = 'block';
+      openModal(successPopUp);
       resolve({status:1, message: "Successfully activate success pop-up"});
     }catch(error){
       reject({status:0, message: error});
     }
   })
 }
-/** Implementation of Searching from firestore */
-//function that creates a search result
+
+/**
+ * Create HTML content for search result
+ * @param {string} title title of the search result
+ * @param {string} body content/body of the search result
+ * @param {string} video_url youtube video link
+ * @returns {Promise<{status: number, message: string}>} A promise that resolves with a status message indicating the result of the search.
+ */
 function createSearchResultHTML(title, body, video_url){
   if(title == ""){
     let emptyResult = document.createElement("div");
@@ -360,6 +458,14 @@ function createSearchResultHTML(title, body, video_url){
   return searchResult;
 }
 
+
+/**
+ * Searches Firestore for content matching the given search key.
+ * @param {firebase.firestore.Firestore} firestore The Firestore instance.
+ * @param {string} collection The name of the Firestore collection to search.
+ * @param {string} searchKey The search key.
+ * @returns {Promise<{status: number, message: string}>} A promise that resolves with a status message indicating the result of the search.
+ */
 function searchFromFireStore(firestore, collection, searchKey) {
   // Fetch data from Firestore and insert into trie
   return new Promise((resolve, reject) => {
@@ -380,5 +486,94 @@ function searchFromFireStore(firestore, collection, searchKey) {
     }).catch((error) => {
       reject({status:0, message: error});
     });
+  })
+}
+
+/**
+ * Handles a reaction request (like/dislike) for a specific content.
+ * @param {firebase.app.App} firebase The Firebase app instance.
+ * @param {string} advice_id The ID of the advice content.
+ * @param {string} type The type of reaction ("like" or "dislike").
+ * @returns {Promise<{status: number, message: string}>} A promise that resolves with a status message indicating the result of the reaction request.
+ */
+function handleReactionRequest(firebase, advice_id, type) {
+  // Get the current user's ID from Firebase Auth
+  return new Promise((resolve, reject) => {
+    var user = firebase.auth().currentUser;
+    if (user) {
+        var uid = user.uid;
+
+        // Get a Firestore reference to the reactions collection
+        var reactionsRef = firebase.firestore().collection("reactions");
+
+        // Check if the user has already liked the content
+        reactionsRef.where("user_id", "==", uid).where("advice_id", "==", advice_id).get()
+        .then(function(querySnapshot) {
+            if (querySnapshot.empty) {
+                // If the user hasn't already liked the content, add a new like reaction
+                reactionsRef.add({
+                    user_id: uid,
+                    advice_id: advice_id,
+                    type: type
+                })
+                .then(function(docRef) {
+                    resolve({status:1, message: `Reaction added with id ${docRef.id}`});
+                })
+                .catch(function(error) {
+                  reject({status:0, message: error});
+                });
+            } else {
+              //update it if it's another type, else delete it
+              querySnapshot.forEach(doc => {
+                if(doc.data().type == type){
+                  reactionsRef.doc(doc.id).delete()
+                  .then(()=>{
+                    resolve({status:1, message: "Reaction deleted"});
+                  })
+                  .catch(error => {
+                    reject({status:0, message: error});
+                  })
+                }else{
+                  reactionsRef.doc(doc.id).update({
+                    type:type
+                  })
+                  .then(()=>{
+                    resolve({status:1, message: "Reaction updated"});
+                  })
+                  .catch(error => {
+                    reject({status:0, message: error});
+                  })
+                }
+              })
+            }
+        })
+        .catch(function(error) {
+            reject({status:0, message: error});
+        });
+    } else {
+      reject({status:0, message: "No user is currently signed in."});
+    }
+  })
+}
+
+/**
+ * Adds event handlers to all reaction buttons for handling user reactions.
+ * @param {firebase.app.App} firebase The Firebase app instance.
+ * @param {HTMLButtonElement[]} btns An array of HTML button elements representing reaction buttons.
+ */
+function addEventHandlerToAllReactionBtn(firebase, btns){
+  btns.forEach(contentReactionBtn => {
+    let type = contentReactionBtn.getAttribute("data-type");
+    let adviceId = contentReactionBtn.getAttribute("data-adviceId");
+    contentReactionBtn.addEventListener("click", ()=>{
+      handleReactionRequest(firebase, adviceId, type)
+      .then(() => {
+        activateMasking();
+        showSuccessPopUp("Thank you for your feedback!", "Your feedback will help us produce better work.");
+      })
+      .catch(error => {
+        alert(error.message);
+      })
+    })
   })
 }

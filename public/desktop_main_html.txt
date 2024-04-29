@@ -110,14 +110,6 @@
     </div>
 </section>
 <!-- Advice Section -->
-<style>
-    iframe{
-        width: 35vw;
-        max-width: 560px;
-        height: 30vh;
-        max-height: 315px;
-    }
-</style>
 <section class="section">
     <div class="container" id="advicesWrapper" style="position: relative;">
         <div class="blurred-content">
@@ -149,8 +141,7 @@
                     <p class="pl-2">A lot of players even NBA players has the problem of having turnovers, so does everyone else. Most people only focus on how to score a 50-piece, when they turn the ball over more than 50 points worth of position. Learn how to protect your ball, how to make good passes, how to catch ball while sprinting and not turnover, and more. If you can play a whole game of basketball with 0 turnover, good job, you are already on top of so many people.</p>
                     </div>
                     <div class="is-flex is-align-items-center mt-3">
-                    <button class="button is-small is-success mr-2" onclick="like_content('abc')">Helpful!</button>
-                    <button class="button is-small is-danger" onclick="like_content('abc')">Not Helpful!</button>
+                    <button class="button is-small is-primary mr-2" onclick="add_comment('abc')">Comment</button>
                     </div>
                 </div>
             </div>
@@ -167,6 +158,9 @@
                     </div>
                     <!-- Explanation Paragraph -->
                     <p class="pl-2">A lot of the time, hooper under 6 feet like me thinks that they can play in any level with their bounce and lay-up. Most of the time, they're wrong, I was wrong too. The longer range you have the better. Therefore, focus on getting the range of your shots instead of the bounce and fansy lays.</p>
+                </div>
+                <div class="is-flex is-align-items-center mt-3">
+                    <button class="button is-small is-primary mr-2" onclick="add_comment('abc')">Comment</button>
                 </div>
             </div>
         </div>

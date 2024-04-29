@@ -16,3 +16,11 @@ main{
 .modal.is-active{
     z-index: 96;
 }
+/* iframe */
+iframe{
+    z-index: 94 !important;
+    width: 35vw;
+    max-width: 560px;
+    height: 30vh;
+    max-height: 315px;
+}
